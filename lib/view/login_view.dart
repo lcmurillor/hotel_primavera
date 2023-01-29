@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hotel_primavera_app/shared/shareds.dart';
+import 'package:hotel_primavera_app/theme/themes.dart';
+import 'package:hotel_primavera_app/widgets/widgets.dart';
 
 class LoginView extends StatelessWidget {
+  ///Esta vista es la pantalla principal donde el ususario inicia sesión en la aplicación.
   const LoginView({Key? key}) : super(key: key);
 
   @override
@@ -10,10 +12,11 @@ class LoginView extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Row(
       children: [
+        ///Imagen con el logo del Hotel Primavera.
         Container(
           width: size.width * 0.50,
           height: size.height,
-          color: const Color.fromRGBO(227, 246, 252, 1),
+          color: ColorStyle.mainIceBlue,
           child: Center(
             child: SvgPicture.asset('logo.svg',
                 semanticsLabel: 'Logo Hotel Primavera',
@@ -21,6 +24,8 @@ class LoginView extends StatelessWidget {
                 width: 500),
           ),
         ),
+
+        ///Espacio para el contenedor donde se encuentra el card de login.
         SizedBox(
           width: size.width * 0.50,
           height: size.height,

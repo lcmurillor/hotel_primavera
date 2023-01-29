@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'router/router.dart';
-import 'service/navigation_service.dart';
+import 'services/navigation_service.dart';
 
 void main() => runApp(const MyApp());
 
