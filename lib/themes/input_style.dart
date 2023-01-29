@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hotel_primavera_app/theme/themes.dart';
+import '../themes/themes.dart';
 
 ///Este es el apartado general que le da el estilo a todos los text inputs de la aplicación.
 class InputStyle {

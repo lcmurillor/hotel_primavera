@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hotel_primavera_app/theme/themes.dart';
+import '../themes/themes.dart';
 
 class SecundaryButton extends StatelessWidget {
   ///Corresponde al botón azul secundario que se encuentra al final de algunos formularios

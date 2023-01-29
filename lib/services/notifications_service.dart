@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tecni_repuestos/theme/themes.dart';
+import 'package:hotel_primavera_app/themes/themes.dart';
 
 ///Esta clase permite gestionar de manera controlada los diferentes tipos de cuadros de dialogo que son
 ///usados por la aplicación para dar información o advertir al usuario.

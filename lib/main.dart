@@ -1,35 +1,20 @@
+import 'package:hotel_primavera_app/services/services.dart';
+
+import 'firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'routers/router.dart';
 
-import 'router/router.dart';
-import 'services/navigation_service.dart';
-
-void main() => runApp(const MyApp());
-
-// class AppState extends StatelessWidget {
-//   const AppState({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MultiProvider(
-//       providers: const [],
-//       child: const MyApp(),
-//     );
-//   }
-// }
-
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  State<MyApp> createState() => _MyAppState();
+void main() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  Flurorouter.configureRoutes();
+  runApp(const HotelPrimavera());
 }
 
-class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-    super.initState();
-    Flurorouter.configureRoutes();
-  }
+class HotelPrimavera extends StatelessWidget {
+  const HotelPrimavera({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +24,7 @@ class _MyAppState extends State<MyApp> {
       initialRoute: '/',
       onGenerateRoute: Flurorouter.router.generator,
       navigatorKey: NavigationService.navigatorKey,
-      //scaffoldMessengerKey: NotificationsService.messengerKey,
+      scaffoldMessengerKey: NotificationsService.messengerKey,
       //theme: MainTheme.lightTheme,
     );
   }

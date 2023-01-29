@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../theme/input_style.dart';
+import '../themes/input_style.dart';
 
 class CustomTextInput extends StatelessWidget {
   ///Corresponde a una istancia de un objeto de tipo TextFormField, personalizado

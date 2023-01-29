@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+import '../themes/themes.dart';
+import '../widgets/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hotel_primavera_app/theme/themes.dart';
-import 'package:hotel_primavera_app/widgets/widgets.dart';
+import 'package:flutter/material.dart';
 
 class LoginView extends StatelessWidget {
   ///Esta vista es la pantalla principal donde el ususario inicia sesión en la aplicación.

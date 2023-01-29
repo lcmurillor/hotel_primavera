@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hotel_primavera_app/services/services.dart';
+import '../services/services.dart';
 
 ///Ésta clase corresponde a la conección que se tiene con la base de datos Firebase
 ///relacionada con el apartado de credenciales y autetificación de usuario.
@@ -12,12 +12,16 @@ class FirebaseAuthService {
   ///Médoto para iniciar sesión mediante el correo y la contraseña,
   ///Valida si el usuario existe o si los datos ingresados corresponden a un usuario registrado
   ///sinó es así, retorna un mensaje en pantalla.
-  ///Guarda los datos en un objeto de tipo User.
-  static signIn(String email, String password, BuildContext context) async {
+  ///Si las validaciones se cumplen, esta función se encargará de hacer el enrutamiento
+  ///a la siguente vista.
+  static signIn(
+      {required String email,
+      required String password,
+      required BuildContext context}) async {
     try {
       await auth.signInWithEmailAndPassword(email: email, password: password);
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+      // Navigator.pushReplacement(
+      //     context, MaterialPageRoute(builder: (context) => const HomeScreen()));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         NotificationsService.showErrorSnackbar(
@@ -34,8 +38,8 @@ class FirebaseAuthService {
   static signOut(BuildContext context) async {
     try {
       await auth.signOut();
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+      // Navigator.pushReplacement(
+      //     context, MaterialPageRoute(builder: (context) => const HomeScreen()));
     } on FirebaseAuthException catch (e) {
       NotificationsService.showErrorSnackbar(
           'Ha ocurrodo un error al cerrar la sesión: $e');
@@ -46,17 +50,17 @@ class FirebaseAuthService {
   ///autentificación de firebase y luego guarda datos adicionales a este en la base de datos
   ///asociados con el UID. Al final guarda el usuario en la memoria y muestra la pantalla principal.
   static logIn(
-      String email, String password, userModel, BuildContext context) async {
+      String email, String password, user, BuildContext context) async {
     try {
       ///Proceso de creación de un nuevo usuario en el apartado de "Autentificación" de Firebase.
       UserCredential userCredential = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
 
       ///Asigna el UID al objeto de tipo usuario y manda este objeto a la base de datos.
-      userModel.id = userCredential.user!.uid;
-      FirebaseRealtimeService.setUser(user: userModel);
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+      user.id = userCredential.user!.uid;
+      FirebaseFirestoreService.setUser(user: user);
+      // Navigator.pushReplacement(
+      //     context, MaterialPageRoute(builder: (context) => const HomeScreen()));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         NotificationsService.showErrorSnackbar(

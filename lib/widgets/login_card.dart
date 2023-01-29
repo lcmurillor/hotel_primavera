@@ -1,9 +1,10 @@
+import '../models/models.dart';
+import '../providers/providers.dart';
+import '../services/services.dart';
+import '../themes/themes.dart';
+import '../widgets/widgets.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:hotel_primavera_app/provider/providers.dart';
-import 'package:hotel_primavera_app/services/services.dart';
-import 'package:hotel_primavera_app/theme/themes.dart';
-import 'package:hotel_primavera_app/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class LoginCard extends StatelessWidget {
@@ -25,13 +26,13 @@ class LoginCard extends StatelessWidget {
         height: size.height * 0.60,
         child: Column(
           children: [
-            const SizedBox(height: 30),
+            const SizedBox(height: 50),
             Text(
               "Iniciar Sesión",
               style: CustomTextStyle.robotoSemiBold
                   .copyWith(fontSize: 50, color: ColorStyle.mainDarkGreen),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 50),
             const _LoginForm()
           ],
         ),
@@ -55,13 +56,17 @@ class _LoginForm extends StatelessWidget {
       Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
           child: CustomTextInput(
+              height: 20,
               label: 'Correo Electrónico',
               icon: Icons.email,
               onChanged: (value) => loginFormProvider.email = value,
               keyboardType: TextInputType.emailAddress,
               validator: (value) {
-                if (!EmailValidator.validate(value ?? '')) {
-                  return 'El correo no es válido.';
+                if (value == null || value.isEmpty) {
+                  return 'Ingrese su Correo Elecrónico.';
+                }
+                if (!EmailValidator.validate(value)) {
+                  return 'El Correo Elecrónico no es válido.';
                 } else {
                   return null;
                 }
@@ -71,13 +76,14 @@ class _LoginForm extends StatelessWidget {
       Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
           child: CustomTextInput(
+              height: 20,
               label: 'Contraseña',
               icon: Icons.lock,
               obscureText: true,
               onChanged: (value) => loginFormProvider.password = value,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Ingrese su contraseña.';
+                  return 'Ingrese su Contraseña.';
                 }
                 if (value.length < 6) {
                   return 'Debe tener más de 6 caractéres.';
@@ -86,7 +92,8 @@ class _LoginForm extends StatelessWidget {
               })),
       PrimaryButton(
           text: 'Iniciar sesión',
-          onPressed: () => _validate(loginFormProvider, context)),
+          onPressed: () => _validate(
+              loginFormProvider: loginFormProvider, context: context)),
       const SizedBox(height: 10),
       SecundaryButton(
           text: '¿Olvidaste tu contraseña?',
@@ -100,10 +107,15 @@ class _LoginForm extends StatelessWidget {
 
 ///Función intermedia que hace una llamado a la base de datos para obtener un usuario
 ///si éste está registrado, de ahí se hacen el resto de evaluaciones de autetificación.
-void _validate(LoginFormProvider loginFormProvider, BuildContext context) {
+void _validate(
+    {required LoginFormProvider loginFormProvider,
+    required BuildContext context}) {
   if (loginFormProvider.validateForm()) {
-    FirebaseRealtimeService.getUserByEmail(email: loginFormProvider.email)
-        .then((User? user) => _validateData(user, loginFormProvider, context));
+    FirebaseFirestoreService.getUserByEmail(email: loginFormProvider.email)
+        .then((User? user) => _validateData(
+            user: user,
+            loginFormProvider: loginFormProvider,
+            context: context));
   } else {
     NotificationsService.showErrorSnackbar(
         'No se han ingresado los datos para iniciar sesión.');
@@ -114,12 +126,16 @@ void _validate(LoginFormProvider loginFormProvider, BuildContext context) {
 ///mínimos y si el usuario registrado está activo en el sistema. Si se cumplen las condiciones
 ///se puede iniciar la sesión.
 void _validateData(
-    User? user, LoginFormProvider loginFormProvider, BuildContext context) {
+    {required User? user,
+    required LoginFormProvider loginFormProvider,
+    required BuildContext context}) {
   if (user != null && !user.disabled) {
     FirebaseAuthService.signIn(
-        loginFormProvider.email, loginFormProvider.password, context);
+        email: loginFormProvider.email,
+        password: loginFormProvider.password,
+        context: context);
   } else {
     NotificationsService.showErrorSnackbar(
-        'El ususrio indicado no está registrado.');
+        'El usuario indicado no está registrado.');
   }
 }

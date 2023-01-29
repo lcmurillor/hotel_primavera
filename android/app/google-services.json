@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "647272816114",
+    "project_id": "hotel-primavera-cafd9",
+    "storage_bucket": "hotel-primavera-cafd9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:647272816114:android:b8001b6eff4c0c2f7b1f6b",
+        "android_client_info": {
+          "package_name": "com.example.hotel_primavera_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "647272816114-mss89101ri5vv7tdu0jhjpca1lr4pi9h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeTyveszO6sf7zU-4G7jGhwGSlbcPr2fs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "647272816114-mss89101ri5vv7tdu0jhjpca1lr4pi9h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

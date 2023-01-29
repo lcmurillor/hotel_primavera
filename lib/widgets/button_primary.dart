@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hotel_primavera_app/theme/themes.dart';
+import '../themes/themes.dart';
 
 class PrimaryButton extends StatelessWidget {
-  ///Corresponde al botón rojo principal que se encuentra al final de diversos formularios
-  ///de la aplicación.
+  ///Corresponde al botón principal que es utilizado en muchas de las ventanas de la aplicación
+  ///como ación primaria. esto permite tener un estilo omogeneo en toda la aplicación.
   const PrimaryButton(
       {Key? key,
       required this.text,
@@ -21,11 +21,11 @@ class PrimaryButton extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return MaterialButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        color: (color == null) ? Theme.of(context).colorScheme.primary : color,
+        color: ColorStyle.mainSoftGreen,
         onPressed: onPressed,
         child: SizedBox(
-          width: size.width * 0.80,
-          height: size.width * 0.13,
+          width: size.width * 0.17,
+          height: size.height * 0.08,
           child: Center(
             child: Text(text,
                 style: CustomTextStyle.robotoMedium
