@@ -6,19 +6,15 @@ import '../view/views.dart';
 ///Todo el enrutamiento y las direcciones de las diferentes vistas de la aplicación
 ///se manejan desde esta ventana principal.
 class MainHandlers {
-  static Handler home = Handler(handlerFunc: (context, parameters) {
+  static Handler login = Handler(handlerFunc: (context, parameters) {
     return const MainLayoutPage(child: LoginView());
   });
 
-  // static Handler experince = Handler(handlerFunc: (context, parameters) {
-  //   return const MainLayoutPage(child: ExperienceView());
-  // });
+  static Handler dashboard = Handler(handlerFunc: (context, parameters) {
+    return const MainLayoutPage(child: DashboardView());
+  });
 
-  // static Handler contactus = Handler(handlerFunc: (context, parameters) {
-  //   return const MainLayoutPage(child: ContactUsView());
-  // });
-
-  // static Handler nofound = Handler(handlerFunc: (context, parameters) {
-  //   return const MainLayoutPage(child: PageNotFoundView());
-  // });
+  static Handler notFound = Handler(handlerFunc: (context, parameters) {
+    return const MainLayoutPage(child: PageNotFoundView());
+  });
 }

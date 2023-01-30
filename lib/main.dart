@@ -25,7 +25,6 @@ class HotelPrimavera extends StatelessWidget {
       onGenerateRoute: Flurorouter.router.generator,
       navigatorKey: NavigationService.navigatorKey,
       scaffoldMessengerKey: NotificationsService.messengerKey,
-      //theme: MainTheme.lightTheme,
     );
   }
 }

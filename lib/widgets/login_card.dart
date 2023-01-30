@@ -23,7 +23,7 @@ class LoginCard extends StatelessWidget {
       child: Card(
           child: SizedBox(
         width: size.width * 0.30,
-        height: size.height * 0.60,
+        height: size.height * 0.65,
         child: Column(
           children: [
             const SizedBox(height: 50),
@@ -51,57 +51,58 @@ class _LoginForm extends StatelessWidget {
     final loginFormProvider =
         Provider.of<LoginFormProvider>(context, listen: false);
     return Form(
+        key: loginFormProvider.formKey,
         child: Column(children: [
-      ///Input correspondiente al correo electronico solicitado para iniciar sesión.
-      Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: CustomTextInput(
-              height: 20,
-              label: 'Correo Electrónico',
-              icon: Icons.email,
-              onChanged: (value) => loginFormProvider.email = value,
-              keyboardType: TextInputType.emailAddress,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Ingrese su Correo Elecrónico.';
-                }
-                if (!EmailValidator.validate(value)) {
-                  return 'El Correo Elecrónico no es válido.';
-                } else {
-                  return null;
-                }
-              })),
+          ///Input correspondiente al correo electronico solicitado para iniciar sesión.
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: CustomTextInput(
+                  height: 20,
+                  label: 'Correo Electrónico',
+                  icon: Icons.email,
+                  onChanged: (value) => loginFormProvider.email = value,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Ingrese su Correo Elecrónico.';
+                    }
+                    if (!EmailValidator.validate(value)) {
+                      return 'El Correo Elecrónico no es válido.';
+                    } else {
+                      return null;
+                    }
+                  })),
 
-      ///Input correspondiente a la contraseña solicitado para iniciar sesión.
-      Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: CustomTextInput(
-              height: 20,
-              label: 'Contraseña',
-              icon: Icons.lock,
-              obscureText: true,
-              onChanged: (value) => loginFormProvider.password = value,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Ingrese su Contraseña.';
-                }
-                if (value.length < 6) {
-                  return 'Debe tener más de 6 caractéres.';
-                }
-                return null;
-              })),
-      PrimaryButton(
-          text: 'Iniciar sesión',
-          onPressed: () => _validate(
-              loginFormProvider: loginFormProvider, context: context)),
-      const SizedBox(height: 10),
-      SecundaryButton(
-          text: '¿Olvidaste tu contraseña?',
-          fontSize: 16,
-          onPressed: () {
-            Navigator.pushReplacementNamed(context, 'passwordRequest');
-          })
-    ]));
+          ///Input correspondiente a la contraseña solicitado para iniciar sesión.
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: CustomTextInput(
+                  height: 20,
+                  label: 'Contraseña',
+                  icon: Icons.lock,
+                  obscureText: true,
+                  onChanged: (value) => loginFormProvider.password = value,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Ingrese su Contraseña.';
+                    }
+                    if (value.length < 6) {
+                      return 'Debe tener más de 6 caractéres.';
+                    }
+                    return null;
+                  })),
+          PrimaryButton(
+              text: 'Iniciar sesión',
+              onPressed: () => _validate(
+                  loginFormProvider: loginFormProvider, context: context)),
+          const SizedBox(height: 10),
+          SecundaryButton(
+              text: '¿Olvidaste tu contraseña?',
+              fontSize: 16,
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, 'passwordRequest');
+              })
+        ]));
   }
 }
 

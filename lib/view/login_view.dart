@@ -18,7 +18,7 @@ class LoginView extends StatelessWidget {
           height: size.height,
           color: ColorStyle.mainIceBlue,
           child: Center(
-            child: SvgPicture.asset('logo.svg',
+            child: SvgPicture.asset('assets/logo.svg',
                 semanticsLabel: 'Logo Hotel Primavera',
                 fit: BoxFit.cover,
                 width: 500),

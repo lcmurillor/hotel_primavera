@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hotel_primavera_app/routers/routers.dart';
 import '../services/services.dart';
 
 ///Ésta clase corresponde a la conección que se tiene con la base de datos Firebase
@@ -20,8 +21,7 @@ class FirebaseAuthService {
       required BuildContext context}) async {
     try {
       await auth.signInWithEmailAndPassword(email: email, password: password);
-      // Navigator.pushReplacement(
-      //     context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+      NavigationService.replaceTo(Flurorouter.dashboardRoute);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         NotificationsService.showErrorSnackbar(

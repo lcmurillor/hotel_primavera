@@ -19,6 +19,7 @@ class NotificationsService {
         duration: const Duration(milliseconds: 2500),
         behavior: SnackBarBehavior.floating,
         backgroundColor: ColorStyle.errorRed,
+        margin: const EdgeInsets.symmetric(horizontal: 300),
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)));
 
