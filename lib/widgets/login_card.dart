@@ -5,7 +5,6 @@ import '../themes/themes.dart';
 import '../widgets/widgets.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class LoginCard extends StatelessWidget {
   ///Este elemento corresponde al card que se encuentra en la vista principal del de la aplicación donde el usuario

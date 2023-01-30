@@ -33,6 +33,12 @@ class InputStyle {
       focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
           borderSide: BorderSide(color: ColorStyle.mainSoftGreen)),
+      errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: BorderSide(color: ColorStyle.errorRed)),
+      focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: BorderSide(color: ColorStyle.errorRed)),
     );
   }
 }
