@@ -34,12 +34,11 @@ class FirebaseAuthService {
   }
 
   ///Permite cerrar la sesión de un usuario registrado, además de esto navega a la página
-  ///principal y con esto actualiza las opciones disponibles en el menú lateral.
+  ///principal de inisio de sesión.
   static signOut(BuildContext context) async {
     try {
       await auth.signOut();
-      // Navigator.pushReplacement(
-      //     context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+      NavigationService.replaceTo(Flurorouter.rootRoute);
     } on FirebaseAuthException catch (e) {
       NotificationsService.showErrorSnackbar(
           'Ha ocurrodo un error al cerrar la sesión: $e');

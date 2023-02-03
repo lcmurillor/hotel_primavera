@@ -9,23 +9,27 @@ class PrimaryButton extends StatelessWidget {
       required this.text,
       required this.onPressed,
       this.fontSize = 18,
-      this.color})
+      this.color,
+      this.width,
+      this.height})
       : super(key: key);
   final String text;
   final void Function()? onPressed;
   final double fontSize;
   final Color? color;
+  final double? width;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return MaterialButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        color: ColorStyle.mainSoftGreen,
+        color: color ?? ColorStyle.mainSoftGreen,
         onPressed: onPressed,
         child: SizedBox(
-          width: size.width * 0.17,
-          height: size.height * 0.08,
+          width: width ?? size.width * 0.17,
+          height: height ?? size.height * 0.08,
           child: Center(
             child: Text(text,
                 style: CustomTextStyle.robotoMedium
