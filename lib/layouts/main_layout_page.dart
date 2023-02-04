@@ -15,6 +15,7 @@ class MainLayoutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final double padding = size.width * 0.01;
     return ChangeNotifierProvider(
       create: (_) => SearchFormProvider(),
       child: Builder(builder: (context) {
@@ -22,7 +23,7 @@ class MainLayoutPage extends StatelessWidget {
             Provider.of<SearchFormProvider>(context, listen: false);
         return Scaffold(
           ///Este elemento corresponde a la barra personalizada de la aplicación.
-          appBar: _customAppBar(size, searchFormProvider, context),
+          appBar: _customAppBar(size, searchFormProvider, context, padding),
 
           ///Este elemento coresponde al contenido de la página.
           body: Column(
@@ -35,8 +36,8 @@ class MainLayoutPage extends StatelessWidget {
 
   ///Barra superior personalizada para la aplicación. Con logo, barra de busqueda
   ///y bottones de acción respectivamente.
-  PreferredSize _customAppBar(
-      Size size, SearchFormProvider searchFormProvider, BuildContext context) {
+  PreferredSize _customAppBar(Size size, SearchFormProvider searchFormProvider,
+      BuildContext context, double padding) {
     return PreferredSize(
         preferredSize: const Size.fromHeight(100),
         child: Row(children: [
@@ -56,7 +57,8 @@ class MainLayoutPage extends StatelessWidget {
           SizedBox(
               width: size.width * 0.50,
               child: Padding(
-                  padding: const EdgeInsets.all(22),
+                  padding:
+                      EdgeInsets.only(left: padding, right: padding, top: 22),
                   child: Form(
                       key: searchFormProvider.formKey,
                       child: CustomTextInput(
@@ -74,9 +76,10 @@ class MainLayoutPage extends StatelessWidget {
 
           ///Este es el botón de la barra superiór el cual acciona la busqueda.
           Padding(
-              padding: const EdgeInsets.only(
-                  left: 22, right: 22, top: 22, bottom: 30),
+              padding: EdgeInsets.only(
+                  left: padding, right: padding, top: 22, bottom: 30),
               child: PrimaryButton(
+                  width: size.width * 0.15,
                   text: "Buscar",
                   onPressed: () {
                     print("Buscar");
@@ -86,8 +89,8 @@ class MainLayoutPage extends StatelessWidget {
           ///para esto muestra un mensaje primeramente para aegurar al usuario que
           ///se va a salir y si se confirma, se cierra la sesión.
           Padding(
-            padding:
-                const EdgeInsets.only(left: 22, right: 22, top: 22, bottom: 30),
+            padding: EdgeInsets.only(
+                left: padding, right: padding, top: 22, bottom: 30),
             child: PrimaryButton(
                 color: ColorStyle.errorRed,
                 width: size.width * 0.05,

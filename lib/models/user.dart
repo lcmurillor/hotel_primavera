@@ -3,7 +3,7 @@ import 'dart:convert';
 ///Éste objeto corresponde a un usuario de la base de datos con todos sus respectivos
 ///atributos.
 class User {
-  ///Método constructor de usarios, requiere de todos los atrubutos para ser construido.
+  ///Método constructor de usuarios, requiere de algunos atributos para ser construido.
   User(
       {this.administrator = false,
       this.disabled = false,
