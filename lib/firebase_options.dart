@@ -50,6 +50,7 @@ class DefaultFirebaseOptions {
     projectId: 'hotel-primavera-cafd9',
     authDomain: 'hotel-primavera-cafd9.firebaseapp.com',
     storageBucket: 'hotel-primavera-cafd9.appspot.com',
+    databaseURL: 'https://hotel-primavera-cafd9-default-rtdb.firebaseio.com/',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
@@ -58,6 +59,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '647272816114',
     projectId: 'hotel-primavera-cafd9',
     storageBucket: 'hotel-primavera-cafd9.appspot.com',
+    databaseURL: 'https://hotel-primavera-cafd9-default-rtdb.firebaseio.com/',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
@@ -66,8 +68,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '647272816114',
     projectId: 'hotel-primavera-cafd9',
     storageBucket: 'hotel-primavera-cafd9.appspot.com',
-    iosClientId: '647272816114-sn4qrs0ni4bq1n11o3mfdop2d5604676.apps.googleusercontent.com',
+    iosClientId:
+        '647272816114-sn4qrs0ni4bq1n11o3mfdop2d5604676.apps.googleusercontent.com',
     iosBundleId: 'com.example.hotelPrimaveraApp',
+    databaseURL: 'https://hotel-primavera-cafd9-default-rtdb.firebaseio.com/',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -76,7 +80,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '647272816114',
     projectId: 'hotel-primavera-cafd9',
     storageBucket: 'hotel-primavera-cafd9.appspot.com',
-    iosClientId: '647272816114-sn4qrs0ni4bq1n11o3mfdop2d5604676.apps.googleusercontent.com',
+    iosClientId:
+        '647272816114-sn4qrs0ni4bq1n11o3mfdop2d5604676.apps.googleusercontent.com',
     iosBundleId: 'com.example.hotelPrimaveraApp',
+    databaseURL: 'https://hotel-primavera-cafd9-default-rtdb.firebaseio.com/',
   );
 }

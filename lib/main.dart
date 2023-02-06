@@ -1,3 +1,4 @@
+import 'package:hotel_primavera_app/providers/providers.dart';
 import 'package:hotel_primavera_app/services/services.dart';
 
 import 'firebase_options.dart';
@@ -10,7 +11,18 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   Flurorouter.configureRoutes();
-  runApp(const HotelPrimavera());
+  runApp(const AppState());
+}
+
+class AppState extends StatelessWidget {
+  const AppState({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+        providers: [ChangeNotifierProvider(create: (_) => ClientProvider())],
+        child: const HotelPrimavera());
+  }
 }
 
 class HotelPrimavera extends StatelessWidget {

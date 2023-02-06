@@ -111,8 +111,8 @@ void _validate(
     {required LoginFormProvider loginFormProvider,
     required BuildContext context}) {
   if (loginFormProvider.validateForm()) {
-    FirebaseFirestoreService.getUserByEmail(email: loginFormProvider.email)
-        .then((User? user) => _validateData(
+    FirebaseDatabaseService.getUserByEmail(email: loginFormProvider.email).then(
+        (User? user) => _validateData(
             user: user,
             loginFormProvider: loginFormProvider,
             context: context));

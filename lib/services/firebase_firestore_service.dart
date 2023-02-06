@@ -1,47 +1,61 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'dart:convert';
+import 'package:firebase_database/firebase_database.dart';
+import '../services/services.dart';
 import '../models/models.dart';
 
 ///Ésta clase corresponde a la conexión a la base datos Firebase y su respectivo
 ///traslado de datos a los modelos correspondientes.
-class FirebaseFirestoreService {
+class FirebaseDatabaseService {
   //Referencia global de la conexión de la base de datos.
-  static final FirebaseFirestore _db = FirebaseFirestore.instance;
+  static final FirebaseDatabase _database = FirebaseDatabase.instance;
 
   ///Éste método selecciona un usuario de la base de datos Firebase por medio del UID
   ///y hace el llamado al método de conversión para retornar un usuario con todos sus
   ///atributos.
-  static Stream<List<User>> getUserByUid(String uid) {
-    final ref = _db.collection('users').where('id', isEqualTo: uid);
-    return ref.snapshots().map(
-        (list) => list.docs.map((doc) => User.fromMap(doc.data())).toList());
+  static Future<User> getUserByUid({required String uid}) async {
+    late User user;
+    final Query query =
+        _database.ref().child('users').orderByChild('id').equalTo(uid);
+    final DataSnapshot dataSnapshot = await query.get();
+    final Map<String, dynamic> data =
+        jsonDecode(jsonEncode(dataSnapshot.value));
+    data.forEach((key, value) {
+      user = User.fromMap(value);
+    });
+    return user;
   }
 
   ///Éste método selecciona un usuario de la base de datos Firebase por medio del correo
   ///y hace el llamado al método de conversión para retornar un usuario con todos sus
   ///atributos.
-  static Future<User?> getUserByEmail({required String email}) {
-    return _db.collection('users').where('email', isEqualTo: email).get().then(
-        (snapshot) =>
-            0 == snapshot.size ? null : User.fromMap(snapshot.docs[0].data()));
+  static Future<User> getUserByEmail({required String email}) async {
+    late User user = User(email: '', id: '', name: '');
+    final Query query =
+        _database.ref().child('users').orderByChild('email').equalTo(email);
+    final DataSnapshot dataSnapshot = await query.get();
+    if (dataSnapshot.value != null) {
+      final Map<String, dynamic> data =
+          jsonDecode(jsonEncode(dataSnapshot.value));
+      data.forEach((key, value) {
+        user = User.fromMap(value);
+      });
+    } else {
+      NotificationsService.showErrorSnackbar('Usuario o contraseña invalida.');
+    }
+    return user;
   }
 
-  ///Éste método permite crear un nuevo usuario en la base de datos. Es solo requerido cuando
-  ///un usuario es registrado por primera vez.
-  static void setUser({required User user}) {
-    _db.collection("users").doc(user.id).set({
-      'administrator': user.administrator,
-      'disabled': user.disabled,
-      'email': user.email,
-      'id': user.id,
-      'name': user.name
-    });
-  }
-
-  ///Permite actualizar los datos del usuario identificado por medio del UID, en casos
-  ///donde no todos los datos fueron alterados, el modelo del usuario guarda los datos
-  ///anteririos y los sobreescrible.
-  static void updateUser(User user) {
-    _db.collection("users").doc(user.id).update({'name': user.name});
+  static Future<List<Client>> getClients() async {
+    List<Client> clients = [];
+    final query = _database.ref().child('clients');
+    final DataSnapshot dataSnapshot = await query.get();
+    if (jsonDecode(jsonEncode(dataSnapshot.value)) != null) {
+      final Map<String, dynamic> data =
+          jsonDecode(jsonEncode(dataSnapshot.value));
+      data.forEach((key, value) {
+        clients.add(Client.fromMap(value));
+      });
+    }
+    return clients;
   }
 }

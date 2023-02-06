@@ -15,12 +15,12 @@ class ClientDataTableSources extends DataTableSource {
     final Client client = clients[index];
     final image = (client.imageUrl == "N/A")
         ? const Image(
-            image: AssetImage('no-image.jpg'),
+            image: AssetImage('not_image.png'),
             width: 35,
             height: 35,
           )
         : FadeInImage.assetNetwork(
-            placeholder: 'loader.gif',
+            placeholder: 'not_image.png',
             width: 35,
             height: 35,
             image: client.imageUrl);

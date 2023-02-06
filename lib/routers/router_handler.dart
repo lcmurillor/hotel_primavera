@@ -19,6 +19,6 @@ class MainHandlers {
   });
 
   static Handler notFound = Handler(handlerFunc: (context, parameters) {
-    return const MainLayoutPage(child: PageNotFoundView());
+    return const PageNotFoundView();
   });
 }

@@ -9,14 +9,21 @@ class PageNotFoundView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Container(
-        color: ColorStyle.mainIceBlue,
-        width: size.width,
-        height: size.height,
-        child: Center(
-          child: Text('Error: 404 Página no encontrada',
-              style: CustomTextStyle.robotoSemiBold
-                  .copyWith(fontSize: 60, color: ColorStyle.mainDarkGreen)),
-        ));
+    return Scaffold(
+        body: Container(
+            color: ColorStyle.mainIceBlue,
+            width: size.width,
+            height: size.height,
+            child: Center(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                  Text('Error: 404 Página no encontrada',
+                      style: CustomTextStyle.robotoSemiBold.copyWith(
+                          fontSize: 60, color: ColorStyle.mainDarkGreen)),
+                  Text('Por favor, vuelva a la página principal.',
+                      style: CustomTextStyle.robotoMedium.copyWith(
+                          fontSize: 20, color: ColorStyle.mainSoftGreen))
+                ]))));
   }
 }

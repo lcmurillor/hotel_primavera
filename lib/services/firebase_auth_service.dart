@@ -57,7 +57,7 @@ class FirebaseAuthService {
 
       ///Asigna el UID al objeto de tipo usuario y manda este objeto a la base de datos.
       user.id = userCredential.user!.uid;
-      FirebaseFirestoreService.setUser(user: user);
+      //FirebaseFirestoreService.setUser(user: user);
       // Navigator.pushReplacement(
       //     context, MaterialPageRoute(builder: (context) => const HomeScreen()));
     } on FirebaseAuthException catch (e) {
