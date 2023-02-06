@@ -18,6 +18,10 @@ class MainHandlers {
     }
   });
 
+  static Handler changePassword = Handler(handlerFunc: (context, parameters) {
+    return const LoginLayoutPage(child: ChangePasswordView());
+  });
+
   static Handler notFound = Handler(handlerFunc: (context, parameters) {
     return const PageNotFoundView();
   });

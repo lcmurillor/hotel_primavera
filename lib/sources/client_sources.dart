@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hotel_primavera_app/widgets/widgets.dart';
 import '../models/models.dart';
 import '../services/services.dart';
 
@@ -20,7 +21,7 @@ class ClientDataTableSources extends DataTableSource {
             height: 35,
           )
         : FadeInImage.assetNetwork(
-            placeholder: 'not_image.png',
+            placeholder: 'loading_icon.gif',
             width: 35,
             height: 35,
             image: client.imageUrl);
@@ -31,12 +32,12 @@ class ClientDataTableSources extends DataTableSource {
       DataCell(Text(client.email1)),
       DataCell(Text('${client.number1}')),
       DataCell(Text(client.enterprise)),
-      DataCell(IconButton(
+      DataCell(SecundaryButton(
+          text: 'Consultar cliente',
           onPressed: () {
             NavigationService.navigateTo(
-                '/dashboard/users/${client.identification}');
-          },
-          icon: const Icon(Icons.edit_outlined)))
+                '/dashboard/clients/${client.identification}');
+          }))
     ]);
   }
 

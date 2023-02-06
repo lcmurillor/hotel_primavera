@@ -40,90 +40,97 @@ class MainLayoutPage extends StatelessWidget {
       BuildContext context, double padding) {
     return PreferredSize(
         preferredSize: const Size.fromHeight(100),
-        child: Row(children: [
-          ///Imagen con el logo del Hotel Primavera.
-          Container(
-              width: size.width * 0.20,
-              // height: size.height,
-              color: ColorStyle.mainIceBlue,
-              child: Center(
-                  child: SvgPicture.asset('assets/logo.svg',
-                      semanticsLabel: 'Logo Hotel Primavera',
-                      fit: BoxFit.contain,
-                      width: 250))),
+        child: Container(
+          decoration: const BoxDecoration(boxShadow: [
+            BoxShadow(
+                color: Colors.black12, offset: Offset(0, 0), blurRadius: 20)
+          ], color: Colors.white),
+          child: Row(children: [
+            ///Imagen con el logo del Hotel Primavera.
+            Container(
+                color: ColorStyle.mainIceBlue,
+                width: size.width * 0.20,
+                child: Center(
+                    child: SvgPicture.asset('assets/logo.svg',
+                        semanticsLabel: 'Logo Hotel Primavera',
+                        fit: BoxFit.contain,
+                        width: 250))),
 
-          ///Input correspondiente a la barra de busqueda en la parte superior para
-          ///buscar clientes.
-          SizedBox(
-              width: size.width * 0.50,
-              child: Padding(
-                  padding:
-                      EdgeInsets.only(left: padding, right: padding, top: 22),
-                  child: Form(
-                      key: searchFormProvider.formKey,
-                      child: CustomTextInput(
-                          height: 0,
-                          label: 'Buscar cliente',
-                          icon: Icons.search,
-                          onChanged: (value) => searchFormProvider.info = value,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'No ha ingresado nungun dato de busqueda.';
-                            } else {
-                              return null;
-                            }
-                          })))),
+            ///Input correspondiente a la barra de busqueda en la parte superior para
+            ///buscar clientes.
+            SizedBox(
+                width: size.width * 0.50,
+                child: Padding(
+                    padding:
+                        EdgeInsets.only(left: padding, right: padding, top: 22),
+                    child: Form(
+                        key: searchFormProvider.formKey,
+                        child: CustomTextInput(
+                            height: 0,
+                            label: 'Buscar cliente',
+                            icon: Icons.search,
+                            onChanged: (value) =>
+                                searchFormProvider.info = value,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'No ha ingresado nungun dato de busqueda.';
+                              } else {
+                                return null;
+                              }
+                            })))),
 
-          ///Este es el botón de la barra superiór el cual acciona la busqueda.
-          Padding(
+            ///Este es el botón de la barra superiór el cual acciona la busqueda.
+            Padding(
+                padding: EdgeInsets.only(
+                    left: padding, right: padding, top: 22, bottom: 30),
+                child: PrimaryButton(
+                    width: size.width * 0.15,
+                    text: "Buscar",
+                    onPressed: () {
+                      print("Buscar");
+                    })),
+
+            ///Este es el botón de la barra superiór el cual permite cerrar sesión.
+            ///para esto muestra un mensaje primeramente para aegurar al usuario que
+            ///se va a salir y si se confirma, se cierra la sesión.
+            Padding(
               padding: EdgeInsets.only(
                   left: padding, right: padding, top: 22, bottom: 30),
               child: PrimaryButton(
-                  width: size.width * 0.15,
-                  text: "Buscar",
-                  onPressed: () {
-                    print("Buscar");
-                  })),
+                  color: ColorStyle.errorRed,
+                  width: size.width * 0.05,
+                  text: "Salir",
 
-          ///Este es el botón de la barra superiór el cual permite cerrar sesión.
-          ///para esto muestra un mensaje primeramente para aegurar al usuario que
-          ///se va a salir y si se confirma, se cierra la sesión.
-          Padding(
-            padding: EdgeInsets.only(
-                left: padding, right: padding, top: 22, bottom: 30),
-            child: PrimaryButton(
-                color: ColorStyle.errorRed,
-                width: size.width * 0.05,
-                text: "Salir",
+                  ///Hace llamado al modal para informar al usuario que se cerrá la sesión.
+                  onPressed: () => showDialog(
+                      context: context,
+                      barrierDismissible: true,
+                      builder: (context) {
+                        return AlertDialog(
+                            elevation: 10,
+                            title: Text("Cerrar Sesión",
+                                style: CustomTextStyle.robotoExtraBold
+                                    .copyWith(fontSize: 35),
+                                textAlign: TextAlign.center),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25)),
+                            content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                      "¿Está seguro que desa cerrar la sesión actual?",
+                                      style: CustomTextStyle.robotoMedium,
+                                      textAlign: TextAlign.center)
+                                ]),
 
-                ///Hace llamado al modal para informar al usuario que se cerrá la sesión.
-                onPressed: () => showDialog(
-                    context: context,
-                    barrierDismissible: true,
-                    builder: (context) {
-                      return AlertDialog(
-                          elevation: 10,
-                          title: Text("Cerrar Sesión",
-                              style: CustomTextStyle.robotoExtraBold
-                                  .copyWith(fontSize: 35),
-                              textAlign: TextAlign.center),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25)),
-                          content:
-                              Column(mainAxisSize: MainAxisSize.min, children: [
-                            Text(
-                                "¿Está seguro que desa cerrar la sesión actual?",
-                                style: CustomTextStyle.robotoMedium,
-                                textAlign: TextAlign.center)
-                          ]),
-
-                          ///Llama a las acciones (botones) para cerrar la sesión o continuar.
-                          ///Se envia la función para cerrar la sesión.
-                          actions: _actions(context,
-                              () => FirebaseAuthService.signOut(context)));
-                    })),
-          )
-        ]));
+                            ///Llama a las acciones (botones) para cerrar la sesión o continuar.
+                            ///Se envia la función para cerrar la sesión.
+                            actions: _actions(context,
+                                () => FirebaseAuthService.signOut(context)));
+                      })),
+            )
+          ]),
+        ));
   }
 }
 

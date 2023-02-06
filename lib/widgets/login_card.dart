@@ -1,5 +1,6 @@
 import '../models/models.dart';
 import '../providers/providers.dart';
+import '../routers/routers.dart';
 import '../services/services.dart';
 import '../themes/themes.dart';
 import '../widgets/widgets.dart';
@@ -99,7 +100,7 @@ class _LoginForm extends StatelessWidget {
               text: '¿Olvidaste tu contraseña?',
               fontSize: 16,
               onPressed: () {
-                Navigator.pushReplacementNamed(context, 'passwordRequest');
+                NavigationService.navigateTo(Flurorouter.changePassword);
               })
         ]));
   }
