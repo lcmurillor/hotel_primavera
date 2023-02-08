@@ -28,7 +28,8 @@ class FirebaseDatabaseService {
   ///Éste método selecciona un usuario de la base de datos Firebase por medio del correo
   ///y hace el llamado al método de conversión para retornar un usuario con todos sus
   ///atributos.
-  static Future<User> getUserByEmail({required String email}) async {
+  static Future<User> getUserByEmail(
+      {required String email, bool isFromPassword = false}) async {
     late User user = User(email: '', id: '', name: '');
     final Query query =
         _database.ref().child('users').orderByChild('email').equalTo(email);
@@ -40,7 +41,10 @@ class FirebaseDatabaseService {
         user = User.fromMap(value);
       });
     } else {
-      NotificationsService.showErrorSnackbar('Usuario o contraseña invalida.');
+      if (!isFromPassword) {
+        NotificationsService.showErrorSnackbar(
+            'Usuario o contraseña invalida.');
+      }
     }
     return user;
   }

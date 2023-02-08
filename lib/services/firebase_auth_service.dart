@@ -74,7 +74,7 @@ class FirebaseAuthService {
   ///Recive el correo de un usuario registrado en la aplicación y envía un correo a este
   ///en el cual puede cambiar su contraseña.
   static Future<bool> requestPassword(
-      String email, BuildContext context) async {
+      {required String email, required BuildContext context}) async {
     bool error = false;
     try {
       await auth.sendPasswordResetEmail(email: email);
