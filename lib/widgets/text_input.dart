@@ -39,20 +39,23 @@ class CustomTextInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      TextFormField(
-        maxLines: maxLines,
-        autocorrect: autocorrect,
-        controller: controller,
-        decoration: InputStyle.mainInput(label: label, icon: icon),
-        keyboardType: keyboardType,
-        obscureText: obscureText,
-        onChanged: onChanged,
-        onTap: onTap,
-        readOnly: readOnly,
-        validator: validator,
-      ),
-      SizedBox(height: height)
-    ]);
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          TextFormField(
+            maxLines: maxLines,
+            autocorrect: autocorrect,
+            controller: controller,
+            decoration: InputStyle.mainInput(label: label, icon: icon),
+            keyboardType: keyboardType,
+            obscureText: obscureText,
+            onChanged: onChanged,
+            onTap: onTap,
+            readOnly: readOnly,
+            validator: validator,
+          ),
+          SizedBox(height: height)
+        ]);
   }
 }

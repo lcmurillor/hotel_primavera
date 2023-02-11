@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hotel_primavera_app/services/services.dart';
 import '../providers/providers.dart';
 import '../themes/themes.dart';
 import '../widgets/widgets.dart';
@@ -29,40 +28,48 @@ class MainLayoutPage extends StatelessWidget {
           body: Column(
             children: [child],
           ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+          floatingActionButton: FloatingActionButton(
+              onPressed: () =>
+                  AddClinetCard.displayAddClinetCard(context: context),
+              backgroundColor: ColorStyle.mainGreen,
+              child: const Icon(Icons.group_add_outlined)),
         );
       }),
     );
   }
+}
 
-  ///Barra superior personalizada para la aplicación. Con logo, barra de busqueda
-  ///y bottones de acción respectivamente.
-  PreferredSize _customAppBar(Size size, SearchFormProvider searchFormProvider,
-      BuildContext context, double padding) {
-    return PreferredSize(
-        preferredSize: const Size.fromHeight(100),
-        child: Container(
+///Barra superior personalizada para la aplicación. Con logo, barra de busqueda
+///y bottones de acción respectivamente.
+PreferredSize _customAppBar(Size size, SearchFormProvider searchFormProvider,
+    BuildContext context, double padding) {
+  return PreferredSize(
+      preferredSize: const Size.fromHeight(100),
+      child: Container(
           decoration: const BoxDecoration(boxShadow: [
             BoxShadow(
-                color: Colors.black12, offset: Offset(0, 0), blurRadius: 20)
+                color: Colors.black12, offset: Offset(0, 0), blurRadius: 15)
           ], color: Colors.white),
-          child: Row(children: [
-            ///Imagen con el logo del Hotel Primavera.
-            Container(
-                color: ColorStyle.mainIceBlue,
-                width: size.width * 0.20,
-                child: Center(
-                    child: SvgPicture.asset('assets/logo.svg',
-                        semanticsLabel: 'Logo Hotel Primavera',
-                        fit: BoxFit.contain,
-                        width: 250))),
+          child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ///Imagen con el logo del Hotel Primavera.
+                Container(
+                    color: ColorStyle.mainIceBlue,
+                    width: size.width * 0.20,
+                    child: Center(
+                        child: SvgPicture.asset('assets/logo.svg',
+                            semanticsLabel: 'Logo Hotel Primavera',
+                            fit: BoxFit.contain,
+                            width: 250))),
 
-            ///Input correspondiente a la barra de busqueda en la parte superior para
-            ///buscar clientes.
-            SizedBox(
-                width: size.width * 0.50,
-                child: Padding(
-                    padding:
-                        EdgeInsets.only(left: padding, right: padding, top: 22),
+                ///Input correspondiente a la barra de busqueda en la parte superior para
+                ///buscar clientes.
+                SizedBox(
+                    width: size.width * 0.40,
+                    height: 100,
                     child: Form(
                         key: searchFormProvider.formKey,
                         child: CustomTextInput(
@@ -77,83 +84,33 @@ class MainLayoutPage extends StatelessWidget {
                               } else {
                                 return null;
                               }
-                            })))),
+                            }))),
 
-            ///Este es el botón de la barra superiór el cual acciona la busqueda.
-            Padding(
-                padding: EdgeInsets.only(
-                    left: padding, right: padding, top: 22, bottom: 30),
-                child: PrimaryButton(
-                    width: size.width * 0.15,
-                    text: "Buscar",
+                ///Este es el botón de la barra superiór el cual acciona la busqueda.
+                PrimaryButton(
+                    height: 48,
+                    text: 'Buscar',
                     onPressed: () {
-                      print("Buscar");
-                    })),
+                      print('Buscar');
+                    }),
 
-            ///Este es el botón de la barra superiór el cual permite cerrar sesión.
-            ///para esto muestra un mensaje primeramente para aegurar al usuario que
-            ///se va a salir y si se confirma, se cierra la sesión.
-            Padding(
-              padding: EdgeInsets.only(
-                  left: padding, right: padding, top: 22, bottom: 30),
-              child: PrimaryButton(
-                  color: ColorStyle.errorRed,
-                  width: size.width * 0.05,
-                  text: "Salir",
+                SizedBox(width: size.width * 0.10),
 
-                  ///Hace llamado al modal para informar al usuario que se cerrá la sesión.
-                  onPressed: () => showDialog(
-                      context: context,
-                      barrierDismissible: true,
-                      builder: (context) {
-                        return AlertDialog(
-                            elevation: 10,
-                            title: Text("Cerrar Sesión",
-                                style: CustomTextStyle.robotoExtraBold
-                                    .copyWith(fontSize: 35),
-                                textAlign: TextAlign.center),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15)),
-                            content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                      "¿Está seguro que desa cerrar la sesión actual?",
-                                      style: CustomTextStyle.robotoMedium,
-                                      textAlign: TextAlign.center)
-                                ]),
+                ///Este es el botón de la barra superiór el cual permite cerrar sesión.
+                ///para esto muestra un mensaje primeramente para aegurar al usuario que
+                ///se va a salir y si se confirma, se cierra la sesión.
+                Padding(
+                    padding: const EdgeInsets.only(right: 15),
+                    child: MaterialButton(
+                        color: ColorStyle.errorRed,
+                        height: 56,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15)),
 
-                            ///Llama a las acciones (botones) para cerrar la sesión o continuar.
-                            ///Se envia la función para cerrar la sesión.
-                            actions: _actions(context,
-                                () => FirebaseAuthService.signOut(context)));
-                      })),
-            )
-          ]),
-        ));
-  }
-}
-
-///Esta lista corresponde a los dos botones que se encuentran en la parte inferior del cuadro de dialogo.
-List<Widget> _actions(BuildContext context, void Function()? onPressed) {
-  return [
-    Padding(
-      padding: const EdgeInsets.only(right: 10),
-      child: TextButton(
-          onPressed: onPressed,
-          child: Text(
-            'Aceptar',
-            style: TextStyle(color: ColorStyle.mainGreen),
-          )),
-    ),
-    Padding(
-      padding: const EdgeInsets.only(right: 20),
-      child: TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: Text(
-            'Cancelar',
-            style: TextStyle(color: ColorStyle.errorRed),
-          )),
-    ),
-  ];
+                        ///Hace llamado al modal para informar al usuario que se cerrá la sesión.
+                        onPressed: () =>
+                            SignOutCard.displaySignOutCard(context: context),
+                        child: const Icon(Icons.output_outlined,
+                            color: Colors.white)))
+              ])));
 }

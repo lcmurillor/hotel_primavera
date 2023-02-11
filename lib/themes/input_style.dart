@@ -15,7 +15,7 @@ class InputStyle {
             height: 25,
             width: 25,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
+                borderRadius: BorderRadius.circular(15),
                 color: ColorStyle.mainDarkGreen),
             child: Icon(
               icon,

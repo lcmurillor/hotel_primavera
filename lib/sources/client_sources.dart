@@ -21,7 +21,7 @@ class ClientDataTableSources extends DataTableSource {
             height: 35,
           )
         : FadeInImage.assetNetwork(
-            placeholder: 'loading_icon.gif',
+            placeholder: 'circularanimation.gif',
             width: 35,
             height: 35,
             image: client.imageUrl);
