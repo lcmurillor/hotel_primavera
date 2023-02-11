@@ -113,7 +113,7 @@ class MainLayoutPage extends StatelessWidget {
                                     .copyWith(fontSize: 35),
                                 textAlign: TextAlign.center),
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25)),
+                                borderRadius: BorderRadius.circular(15)),
                             content: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [

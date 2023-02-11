@@ -19,7 +19,7 @@ class NotificationsService {
         duration: const Duration(milliseconds: 2500),
         behavior: SnackBarBehavior.floating,
         backgroundColor: ColorStyle.errorRed,
-        margin: const EdgeInsets.symmetric(horizontal: 300),
+        margin: const EdgeInsets.symmetric(horizontal: 300, vertical: 100),
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)));
 
@@ -38,6 +38,7 @@ class NotificationsService {
         duration: const Duration(milliseconds: 2500),
         behavior: SnackBarBehavior.floating,
         backgroundColor: ColorStyle.mainGreen,
+        margin: const EdgeInsets.symmetric(horizontal: 300, vertical: 100),
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)));
     messengerKey.currentState!.showSnackBar(snackBar);
