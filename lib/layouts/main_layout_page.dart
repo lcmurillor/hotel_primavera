@@ -91,7 +91,7 @@ PreferredSize _customAppBar(Size size, SearchFormProvider searchFormProvider,
                     height: 48,
                     text: 'Buscar',
                     onPressed: () {
-                      print('Buscar');
+                      // print('Buscar');
                     }),
 
                 SizedBox(width: size.width * 0.10),

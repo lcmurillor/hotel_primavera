@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../providers/providers.dart';
 import '../sources/sources.dart';
-import '../widgets/widgets.dart';
 
 class DashboardView extends StatelessWidget {
   ///Este widget corresponde a la página principal donde se ingresa una vez el usuario está
