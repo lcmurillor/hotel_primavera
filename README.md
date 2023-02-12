@@ -1,16 +1,25 @@
-# hotel_primavera_app
+# HOTEL PRIMAVERA
 
-A new Flutter project.
+Este es un proyecto de aplicación PWA desarrollado en Flutter para la gestión 
+de clientes en el hotel.
 
-## Getting Started
+## Desarrollador
+Creador del proyecto: Luis Carlos Murillo Rosales https://www.linkedin.com/in/lcmurillor/
 
-This project is a starting point for a Flutter application.
+## Aspectos a tomar en cuenta
 
-A few resources to get you started if this is your first Flutter project:
+- Aunque todo el estandar del desarrillo está en ingles, la documentación en el mismo
+  codigo está en español, con la intención de que si a futuro este proyecto es editado
+  por otro desarroladdor muy probablemnte este sea hispanoparlante y se busca facilitar 
+  el trabajo.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Aunque la aplicación sea una PWA (Aplicación web progresiva) el entorno principal para
+  el que fué desarrolado es web. De hecho, a fecha de redación de este README (11.2.2023)
+  no se a probado o cumpilado la aplicación en entornos Android ni IOS.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Aspectos técnicos del SDK
+
+Flutter 3.7.1 • channel stable • https://github.com/flutter/flutter.git
+Framework • revision 7048ed95a5 (10 days ago) • 2023-02-01 09:07:31 -0800
+Engine • revision 800594f1f4
+Tools • Dart 2.19.1 • DevTools 2.20.1
