@@ -11,7 +11,7 @@ class SecundaryButton extends StatelessWidget {
       this.fontSize = 18})
       : super(key: key);
   final String text;
-  final Function onPressed;
+  final void Function()? onPressed;
   final double fontSize;
 
   @override
@@ -21,7 +21,7 @@ class SecundaryButton extends StatelessWidget {
             padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                 const EdgeInsets.all(0)),
             overlayColor: MaterialStateProperty.all<Color>(Colors.transparent)),
-        onPressed: () => onPressed(),
+        onPressed: onPressed,
         child: Text(text,
             style: CustomTextStyle.robotoMedium.copyWith(
                 color: Theme.of(context).colorScheme.secondary,

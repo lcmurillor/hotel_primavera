@@ -19,12 +19,13 @@ class AddClinetCard {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15)),
               content: SizedBox(
-                  height: size.height * 0.50,
+                  height: size.height * 0.60,
                   width: size.width * 0.70,
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Column(children: [
+                          ///ESTE ES EL CONTENEDOR DE NOMBRE CLIENTE
                           SizedBox(
                               height: 63,
                               width: 600,
@@ -32,47 +33,52 @@ class AddClinetCard {
                                   label: 'Nombre comple del cliente',
                                   icon: Icons.account_circle_outlined,
                                   onChanged: (p0) {})),
-                          Row(children: [
-                            SizedBox(
-                              height: 63,
-                              width: 300,
-                              child: DropdownButtonFormField<int>(
-                                value:
-                                    1, //Este será el valor por defecto al dibujar el widget
-                                items: const [
-                                  DropdownMenuItem(
-                                    value: 1,
-                                    child: Text(
-                                      'Cédula de identidad',
+
+                          ///ESTE ES EL CONTENEDOR DE DEL TIPO Y LA CEDULA
+                          SizedBox(
+                            height: 63,
+                            width: 600,
+                            child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SizedBox(
+                                    height: 50,
+                                    width: 250,
+                                    child: DropdownButtonFormField<int>(
+                                      borderRadius: BorderRadius.circular(15),
+                                      elevation: 0,
+                                      decoration: InputStyle.mainInput(
+                                          label: '',
+                                          icon: Icons.perm_identity_outlined),
+                                      value:
+                                          1, //Este será el valor por defecto al dibujar el widget
+                                      items: const [
+                                        DropdownMenuItem(
+                                            value: 1,
+                                            child: Text('Cédula de identidad')),
+                                        DropdownMenuItem(
+                                            value: 2,
+                                            child: Text('Persona Jurídica'))
+                                      ],
+                                      onChanged: (value) {
+                                        // registerFormProvider.identificationType =
+                                        value ?? 1;
+                                      },
                                     ),
                                   ),
-                                  DropdownMenuItem(
-                                    value: 2,
-                                    child: Text(
-                                      'Persona Jurídica',
-                                    ),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: 3,
-                                    child: Text(
-                                      'Pasaporte',
-                                    ),
-                                  ),
-                                ],
-                                onChanged: (value) {
-                                  // registerFormProvider.identificationType =
-                                  value ?? 1;
-                                },
-                              ),
-                            ),
-                            SizedBox(
-                                height: 63,
-                                width: 300,
-                                child: CustomTextInput(
-                                    label: 'Cédula',
-                                    icon: Icons.credit_card_outlined,
-                                    onChanged: (p0) {}))
-                          ]),
+                                  SizedBox(
+                                      height: 63,
+                                      width: 250,
+                                      child: CustomTextInput(
+                                          label: 'Cédula',
+                                          icon: Icons.credit_card_outlined,
+                                          onChanged: (p0) {}))
+                                ]),
+                          ),
+
+                          ///ESTE ES EL CONTENEDOR DEL CORREO PRINCIPAL
                           SizedBox(
                               height: 63,
                               width: 600,
@@ -80,6 +86,8 @@ class AddClinetCard {
                                   label: 'Correo electrónico principal',
                                   icon: Icons.email_outlined,
                                   onChanged: (p0) {})),
+
+                          ///ESTE ES EL CONTENEDOR DEL CORREO SECUNDARIO
                           SizedBox(
                               height: 63,
                               width: 600,
@@ -87,16 +95,65 @@ class AddClinetCard {
                                   label: 'Correo electrónico secundario',
                                   icon: Icons.email_outlined,
                                   onChanged: (p0) {})),
+
+                          ///ESTE ES EL CONTENEDOR DE LA MEPREZA Y LA CEDULA
+                          SizedBox(
+                            width: 600,
+                            height: 63,
+                            child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SizedBox(
+                                      height: 63,
+                                      width: 250,
+                                      child: CustomTextInput(
+                                          label: 'Empresa',
+                                          icon: Icons.business_center_outlined,
+                                          onChanged: (p0) {})),
+                                  SizedBox(
+                                      height: 63,
+                                      width: 250,
+                                      child: CustomTextInput(
+                                          label: 'Cédula',
+                                          icon: Icons.credit_card_outlined,
+                                          onChanged: (p0) {})),
+                                ]),
+                          ),
+
+                          ///ESTE ES EL CONTENEDOR DEL NUMERO DE TELEFONO PRINCIPAL
+                          SizedBox(
+                              height: 63,
+                              width: 600,
+                              child: CustomTextInput(
+                                  label: 'Número de teléfono principal',
+                                  icon: Icons.phone_iphone_outlined,
+                                  onChanged: (p0) {})),
+
+                          ///ESTE ES EL CONTENEDOR DEL NUMERO DE TELEFONO SECUNDARIO
+                          SizedBox(
+                              height: 63,
+                              width: 600,
+                              child: CustomTextInput(
+                                  label: 'Número de teléfono secundario',
+                                  icon: Icons.phone_iphone_outlined,
+                                  onChanged: (p0) {})),
                         ]),
                         Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            children: const [
-                              SizedBox(
+                            children: [
+                              const SizedBox(
                                   height: 200,
                                   width: 200,
                                   child: CircleAvatar(
                                       backgroundImage:
-                                          AssetImage('not_image.png')))
+                                          AssetImage('not_image.png'))),
+                              SizedBox(
+                                  height: 63,
+                                  width: 200,
+                                  child: SecundaryButton(
+                                      text: 'Agregar imagen',
+                                      onPressed: () {})),
                             ])
                       ])),
 
@@ -112,17 +169,15 @@ class AddClinetCard {
       BuildContext context, void Function()? onPressed) {
     return [
       Padding(
-          padding: const EdgeInsets.only(right: 10),
-          child: TextButton(
-              onPressed: onPressed,
-              child: Text('Aceptar',
-                  style: TextStyle(color: ColorStyle.mainGreen)))),
+          padding: const EdgeInsets.only(right: 10, bottom: 20),
+          child:
+              PrimaryButton(text: 'Guardar nuevo cliente', onPressed: () {})),
       Padding(
-          padding: const EdgeInsets.only(right: 20),
-          child: TextButton(
+          padding: const EdgeInsets.only(right: 20, bottom: 20),
+          child: PrimaryButton(
+              text: 'Cancelar',
               onPressed: () => Navigator.pop(context),
-              child: Text('Cancelar',
-                  style: TextStyle(color: ColorStyle.errorRed))))
+              color: ColorStyle.errorRed))
     ];
   }
 }
