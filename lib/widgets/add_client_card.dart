@@ -13,6 +13,8 @@ class AddClinetCard {
         context: context,
         barrierDismissible: true,
         builder: (context) {
+          final newClientFormProvider =
+              Provider.of<NewClientFormProvider>(context, listen: false);
           return AlertDialog(
               elevation: 10,
               title: Text("Agregar Cliente",
@@ -20,31 +22,39 @@ class AddClinetCard {
                   textAlign: TextAlign.center),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15)),
-              content: ChangeNotifierProvider(
-                create: (_) => NewClientFormProvider(),
 
-                ///Este es el llamado al formulario el cual se carga con la información
-                ///del cliente que se deseea agregar.
-                child: const _NewClientForm(),
-              ),
+              ///Este es el llamado al formulario el cual se carga con la información
+              ///del cliente que se deseea agregar.
+              content:
+                  _NewClientForm(newClientFormProvider: newClientFormProvider),
 
               ///Llama a las acciones (botones) para cerrar la sesión o continuar.
               ///Se envia la función para cerrar la sesión.
-              actions: _actions(context, () {}));
+              actions: _actions(
+                  context,
+                  () => _validate(
+                      newClientFormProvider: newClientFormProvider,
+                      context: context)));
         });
   }
 
   ///Esta lista corresponde a los dos botones que se encuentran en la parte inferior del cuadro de dialogo.
   static List<Widget> _actions(
       BuildContext context, void Function()? onPressed) {
+    final size = MediaQuery.of(context).size;
     return [
       Padding(
-          padding: const EdgeInsets.only(right: 10, bottom: 20),
-          child:
-              PrimaryButton(text: 'Guardar nuevo cliente', onPressed: () {})),
-      Padding(
-          padding: const EdgeInsets.only(right: 20, bottom: 20),
+          padding: const EdgeInsets.only(right: 10, bottom: 10),
           child: PrimaryButton(
+              width: size.width * 0.15,
+              height: size.height * 0.07,
+              text: 'Guardar nuevo cliente',
+              onPressed: onPressed)),
+      Padding(
+          padding: const EdgeInsets.only(right: 20, bottom: 10),
+          child: PrimaryButton(
+              width: size.width * 0.15,
+              height: size.height * 0.07,
               text: 'Cancelar',
               onPressed: () => Navigator.pop(context),
               color: ColorStyle.errorRed))
@@ -55,26 +65,27 @@ class AddClinetCard {
 class _NewClientForm extends StatelessWidget {
   ///Este elemento contiene toda la lógica de construción de un formulario y llenado
   ///para generar un nuevo cliente en el sistema.
-  const _NewClientForm();
+  const _NewClientForm({required this.newClientFormProvider});
+
+  final NewClientFormProvider newClientFormProvider;
 
   @override
   Widget build(BuildContext context) {
-    final newClientFormProvider =
-        Provider.of<NewClientFormProvider>(context, listen: false);
     final size = MediaQuery.of(context).size;
     return Form(
       key: newClientFormProvider.formKey,
       child: SizedBox(
-          height: size.height * 0.60,
+          height: size.height * 0.70,
           width: size.width * 0.70,
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
             Column(children: [
               ///ESTE ES EL CONTENEDOR DE NOMBRE CLIENTE
               SizedBox(
-                  height: 63,
+                  height: size.height * 0.10,
                   width: size.width * 0.40,
                   child: CustomTextInput(
+                      height: 0,
                       label: 'Nombre completo del cliente',
                       icon: Icons.account_circle_outlined,
                       onChanged: (value) => newClientFormProvider.name = value,
@@ -86,15 +97,17 @@ class _NewClientForm extends StatelessWidget {
                       })),
 
               ///ESTE ES EL CONTENEDOR DE DEL TIPO Y LA CEDULA
-              SizedBox(
-                height: 63,
+              Container(
+                alignment: Alignment.center,
+                height: size.height * 0.10,
                 width: size.width * 0.40,
                 child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(
-                          height: 50,
+                      Container(
+                          alignment: Alignment.center,
+                          height: size.height * 0.10,
                           width: size.width * 0.18,
                           child: DropdownButtonFormField<int>(
                               borderRadius: BorderRadius.circular(15),
@@ -117,9 +130,10 @@ class _NewClientForm extends StatelessWidget {
                               onChanged: (value) => newClientFormProvider
                                   .identificationType = value ?? 1)),
                       SizedBox(
-                          height: 63,
+                          height: size.height * 0.10,
                           width: size.width * 0.18,
                           child: CustomTextInput(
+                              height: 0,
                               label: 'Cédula',
                               icon: Icons.credit_card_outlined,
                               onChanged: (value) =>
@@ -137,9 +151,10 @@ class _NewClientForm extends StatelessWidget {
 
               ///ESTE ES EL CONTENEDOR DEL CORREO PRINCIPAL
               SizedBox(
-                  height: 63,
+                  height: size.height * 0.10,
                   width: size.width * 0.40,
                   child: CustomTextInput(
+                      height: 0,
                       label: 'Correo electrónico principal',
                       icon: Icons.email_outlined,
                       onChanged: (value) =>
@@ -155,9 +170,10 @@ class _NewClientForm extends StatelessWidget {
 
               ///ESTE ES EL CONTENEDOR DEL CORREO SECUNDARIO
               SizedBox(
-                  height: 63,
+                  height: size.height * 0.10,
                   width: size.width * 0.40,
                   child: CustomTextInput(
+                      height: 0,
                       label: 'Correo electrónico secundario',
                       icon: Icons.email_outlined,
                       onChanged: (value) =>
@@ -173,22 +189,24 @@ class _NewClientForm extends StatelessWidget {
               ///ESTE ES EL CONTENEDOR DE LA MEPREZA Y LA CEDULA
               SizedBox(
                 width: size.width * 0.40,
-                height: 63,
+                height: size.height * 0.10,
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                          height: 63,
+                          height: size.height * 0.10,
                           width: size.width * 0.18,
                           child: CustomTextInput(
+                              height: 0,
                               label: 'Empresa',
                               icon: Icons.business_center_outlined,
                               onChanged: (value) =>
                                   newClientFormProvider.enterprise = value)),
                       SizedBox(
-                          height: 63,
+                          height: size.height * 0.10,
                           width: size.width * 0.18,
                           child: CustomTextInput(
+                              height: 0,
                               label: 'Cédula jirídica',
                               icon: Icons.credit_card_outlined,
                               onChanged: (value) => newClientFormProvider
@@ -198,7 +216,7 @@ class _NewClientForm extends StatelessWidget {
 
               ///ESTE ES EL CONTENEDOR DEL NUMERO DE TELEFONO PRINCIPAL
               SizedBox(
-                  height: 63,
+                  height: size.height * 0.10,
                   width: size.width * 0.40,
                   child: CustomTextInput(
                       label: 'Número de teléfono principal',
@@ -213,7 +231,7 @@ class _NewClientForm extends StatelessWidget {
 
               ///ESTE ES EL CONTENEDOR DEL NUMERO DE TELEFONO SECUNDARIO
               SizedBox(
-                  height: 63,
+                  height: size.height * 0.10,
                   width: size.width * 0.40,
                   child: CustomTextInput(
                       label: 'Número de teléfono secundario',
@@ -228,13 +246,29 @@ class _NewClientForm extends StatelessWidget {
                   child: CircleAvatar(
                       backgroundImage: AssetImage('not_image.png'))),
               SizedBox(
-                  height: 63,
+                  height: size.height * 0.12,
                   width: 200,
                   child: SecundaryButton(
                       text: 'Agregar imagen', onPressed: () {})),
             ])
           ])),
     );
+  }
+}
+
+void _validate(
+    {required NewClientFormProvider newClientFormProvider,
+    required BuildContext context}) {
+  if (newClientFormProvider.validateForm()) {
+    // FirebaseDatabaseService.getUserByEmail(
+    //         email: loginFormProvider.email, isFromPassword: true)
+    //     .then((User? user) => _validateData(
+    //         user: user,
+    //         loginFormProvider: loginFormProvider,
+    //         context: context));
+  } else {
+    // NotificationsService.showErrorSnackbar(
+    //     'No se han ingresado los datos para iniciar sesión.');
   }
 }
 

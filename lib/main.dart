@@ -20,9 +20,10 @@ class AppState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-        providers: [ChangeNotifierProvider(create: (_) => ClientProvider())],
-        child: const HotelPrimavera());
+    return MultiProvider(providers: [
+      ChangeNotifierProvider(create: (_) => ClientProvider()),
+      ChangeNotifierProvider(create: (_) => NewClientFormProvider())
+    ], child: const HotelPrimavera());
   }
 }
 
