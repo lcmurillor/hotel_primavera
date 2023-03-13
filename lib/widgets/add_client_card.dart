@@ -1,7 +1,9 @@
 // ignore_for_file: curly_braces_in_flow_control_structures, unnecessary_null_comparison
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import '../providers/providers.dart';
+import '../services/services.dart';
 import '../themes/themes.dart';
 import '../widgets/widgets.dart';
 import 'package:email_validator/email_validator.dart';
@@ -18,7 +20,7 @@ class AddClinetCard {
           return AlertDialog(
               elevation: 10,
               title: Text("Agregar Cliente",
-                  style: CustomTextStyle.robotoExtraBold.copyWith(fontSize: 35),
+                  style: CustomTextStyle.robotoExtraBold.copyWith(fontSize: 40),
                   textAlign: TextAlign.center),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15)),
@@ -75,8 +77,8 @@ class _NewClientForm extends StatelessWidget {
     return Form(
       key: newClientFormProvider.formKey,
       child: SizedBox(
-          height: size.height * 0.70,
-          width: size.width * 0.70,
+          height: size.height * 0.60,
+          width: size.width * 0.60,
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
             Column(children: [
@@ -98,56 +100,56 @@ class _NewClientForm extends StatelessWidget {
 
               ///ESTE ES EL CONTENEDOR DE DEL TIPO Y LA CEDULA
               Container(
-                alignment: Alignment.center,
-                height: size.height * 0.10,
-                width: size.width * 0.40,
-                child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                          alignment: Alignment.center,
-                          height: size.height * 0.10,
-                          width: size.width * 0.18,
-                          child: DropdownButtonFormField<int>(
-                              borderRadius: BorderRadius.circular(15),
-                              elevation: 0,
-                              decoration: InputStyle.mainInput(
-                                  label: '',
-                                  icon: Icons.perm_identity_outlined),
-                              value:
-                                  1, //Este será el valor por defecto al dibujar el widget
-                              items: const [
-                                DropdownMenuItem(
-                                    value: 1, child: Text('Cédula nacional')),
-                                DropdownMenuItem(
-                                    value: 2, child: Text('Cédula jurídica')),
-                                DropdownMenuItem(
-                                    value: 3, child: Text('Cédula extranjero')),
-                                DropdownMenuItem(
-                                    value: 4, child: Text('Pasaporte')),
-                              ],
-                              onChanged: (value) => newClientFormProvider
-                                  .identificationType = value ?? 1)),
-                      SizedBox(
-                          height: size.height * 0.10,
-                          width: size.width * 0.18,
-                          child: CustomTextInput(
-                              height: 0,
-                              label: 'Cédula',
-                              icon: Icons.credit_card_outlined,
-                              onChanged: (value) =>
-                                  newClientFormProvider.identification = value,
+                  alignment: Alignment.center,
+                  height: size.height * 0.10,
+                  width: size.width * 0.40,
+                  child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                            alignment: Alignment.center,
+                            height: size.height * 0.10,
+                            width: size.width * 0.19,
+                            child: DropdownButtonFormField<int>(
+                                borderRadius: BorderRadius.circular(15),
+                                elevation: 0,
+                                decoration: InputStyle.mainInput(
+                                    label: '',
+                                    icon: Icons.perm_identity_outlined),
+                                value:
+                                    1, //Este será el valor por defecto al dibujar el widget
+                                items: const [
+                                  DropdownMenuItem(
+                                      value: 1, child: Text('Cédula nacional')),
+                                  DropdownMenuItem(
+                                      value: 2, child: Text('Cédula jurídica')),
+                                  DropdownMenuItem(
+                                      value: 3,
+                                      child: Text('Cédula extranjero')),
+                                  DropdownMenuItem(
+                                      value: 4, child: Text('Pasaporte')),
+                                ],
+                                onChanged: (value) => newClientFormProvider
+                                    .identificationType = value ?? 1)),
+                        SizedBox(
+                            height: size.height * 0.10,
+                            width: size.width * 0.19,
+                            child: CustomTextInput(
+                                height: 0,
+                                label: 'Cédula',
+                                icon: Icons.credit_card_outlined,
+                                onChanged: (value) => newClientFormProvider
+                                    .identification = value,
 
-                              ///LLamado al método que hace las validaciones de las diferentes
-                              ///cédulas que se puede ingresar al sistema.
-                              validator: (value) =>
-                                  _validedIdentificantionCondition(
-                                      value: value!,
-                                      newClientFormProvider:
-                                          newClientFormProvider)))
-                    ]),
-              ),
+                                ///LLamado al método que hace las validaciones de las diferentes
+                                ///cédulas que se puede ingresar al sistema.
+                                validator: (value) =>
+                                    _validedIdentificantionCondition(
+                                        value: value!,
+                                        newClientFormProvider:
+                                            newClientFormProvider)))
+                      ])),
 
               ///ESTE ES EL CONTENEDOR DEL CORREO PRINCIPAL
               SizedBox(
@@ -186,58 +188,67 @@ class _NewClientForm extends StatelessWidget {
                         return null;
                       })),
 
-              ///ESTE ES EL CONTENEDOR DE LA MEPREZA Y LA CEDULA
+              ///ESTE ES EL CONTENEDOR DE LA EMPREZA Y LA CEDULA
               SizedBox(
-                width: size.width * 0.40,
-                height: size.height * 0.10,
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                          height: size.height * 0.10,
-                          width: size.width * 0.18,
-                          child: CustomTextInput(
-                              height: 0,
-                              label: 'Empresa',
-                              icon: Icons.business_center_outlined,
-                              onChanged: (value) =>
-                                  newClientFormProvider.enterprise = value)),
-                      SizedBox(
-                          height: size.height * 0.10,
-                          width: size.width * 0.18,
-                          child: CustomTextInput(
-                              height: 0,
-                              label: 'Cédula jirídica',
-                              icon: Icons.credit_card_outlined,
-                              onChanged: (value) => newClientFormProvider
-                                  .enterpriseIdentification = value)),
-                    ]),
-              ),
-
-              ///ESTE ES EL CONTENEDOR DEL NUMERO DE TELEFONO PRINCIPAL
-              SizedBox(
-                  height: size.height * 0.10,
                   width: size.width * 0.40,
-                  child: CustomTextInput(
-                      label: 'Número de teléfono principal',
-                      icon: Icons.phone_iphone_outlined,
-                      onChanged: (value) =>
-                          newClientFormProvider.number1 = int.parse(value),
-                      validator: (value) {
-                        if (value == null || value.isEmpty)
-                          return 'Debe número de teléfono para crear el cliente.';
-                        return null;
-                      })),
-
-              ///ESTE ES EL CONTENEDOR DEL NUMERO DE TELEFONO SECUNDARIO
-              SizedBox(
                   height: size.height * 0.10,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                            height: size.height * 0.10,
+                            width: size.width * 0.19,
+                            child: CustomTextInput(
+                                height: 0,
+                                label: 'Empresa',
+                                icon: Icons.business_center_outlined,
+                                onChanged: (value) =>
+                                    newClientFormProvider.enterprise = value)),
+                        SizedBox(
+                            height: size.height * 0.10,
+                            width: size.width * 0.19,
+                            child: CustomTextInput(
+                                height: 0,
+                                label: 'Cédula jirídica',
+                                icon: Icons.credit_card_outlined,
+                                onChanged: (value) => newClientFormProvider
+                                    .enterpriseIdentification = value))
+                      ])),
+
+              ///ESTE ES EL CONTENEDOR DE LOS DOS NUMEROS DE TELEFONO
+              SizedBox(
                   width: size.width * 0.40,
-                  child: CustomTextInput(
-                      label: 'Número de teléfono secundario',
-                      icon: Icons.phone_iphone_outlined,
-                      onChanged: (value) =>
-                          newClientFormProvider.number2 = int.parse(value))),
+                  height: size.height * 0.10,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ///ESTE ES EL CONTENEDOR DEL NUMERO DE TELEFONO PRINCIPAL
+                        SizedBox(
+                            height: size.height * 0.10,
+                            width: size.width * 0.19,
+                            child: CustomTextInput(
+                                height: 0,
+                                label: 'Número de teléfono principal',
+                                icon: Icons.phone_iphone_outlined,
+                                onChanged: (value) => newClientFormProvider
+                                    .number1 = int.parse(value),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty)
+                                    return 'Debe número de teléfono para crear el cliente.';
+                                  return null;
+                                })),
+
+                        ///ESTE ES EL CONTENEDOR DEL NUMERO DE TELEFONO SECUNDARIO
+                        SizedBox(
+                            height: size.height * 0.10,
+                            width: size.width * 0.19,
+                            child: CustomTextInput(
+                                height: 0,
+                                label: 'Número de teléfono secundario',
+                                icon: Icons.phone_iphone_outlined,
+                                onChanged: (value) => newClientFormProvider
+                                    .number2 = int.parse(value)))
+                      ]))
             ]),
             Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
               const SizedBox(
@@ -249,7 +260,9 @@ class _NewClientForm extends StatelessWidget {
                   height: size.height * 0.12,
                   width: 200,
                   child: SecundaryButton(
-                      text: 'Agregar imagen', onPressed: () {})),
+                      text: 'Agregar imagen',
+                      onPressed: () =>
+                          _addImage(imgUrl: newClientFormProvider.imageUrl))),
             ])
           ])),
     );
@@ -297,4 +310,18 @@ String? _validedIdentificantionCondition(
       value.isEmpty)
     return 'Debe ingresar una cédula de identidad extranjero para crear el cliente.';
   return null;
+}
+
+Future<void> _addImage({required String imgUrl}) async {
+  final result = await FilePicker.platform.pickFiles(
+      allowMultiple: false,
+      type: FileType.custom,
+      allowedExtensions: ['png', 'jpg']);
+  if (result == null) {
+    NotificationsService.showSnackbar('No ha selecionado ninguna imagen.');
+  } else {
+    final path = result.files.single.path;
+    final name = imgUrl;
+    FirebaseStorageService.uploadProductFile(path!, name);
+  }
 }

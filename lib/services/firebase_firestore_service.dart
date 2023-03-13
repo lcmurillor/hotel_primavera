@@ -62,4 +62,9 @@ class FirebaseDatabaseService {
     }
     return clients;
   }
+
+  static void setClientImagUrl(
+      {required String clientId, required String imageUrl}) async {
+    _database.ref().child('clients/$clientId').update({"imageUrl": imageUrl});
+  }
 }
