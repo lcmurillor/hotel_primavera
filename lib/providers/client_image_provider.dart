@@ -8,7 +8,19 @@ import 'package:flutter/material.dart';
 class ClientImageProvider extends ChangeNotifier {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  Uint8List image = Uint8List.fromList([
+  late Uint8List image = notImage;
+
+  setDefaultImage() {
+    notifyListeners();
+    image = notImage;
+  }
+
+  setImage({required Uint8List image}) {
+    notifyListeners();
+    this.image = image;
+  }
+
+  Uint8List notImage = Uint8List.fromList([
     137,
     80,
     78,
@@ -216578,9 +216590,4 @@ class ClientImageProvider extends ChangeNotifier {
     96,
     130
   ]);
-
-  setImage({required Uint8List image}) {
-    notifyListeners();
-    this.image = image;
-  }
 }

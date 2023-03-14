@@ -62,7 +62,12 @@ class AddClinetCard {
               width: size.width * 0.15,
               height: size.height * 0.07,
               text: 'Cancelar',
-              onPressed: () => Navigator.pop(context),
+              onPressed: () {
+                final clientImageProvider =
+                    Provider.of<ClientImageProvider>(context, listen: false);
+                clientImageProvider.setDefaultImage();
+                Navigator.pop(context);
+              },
               color: ColorStyle.errorRed))
     ];
   }
