@@ -22,7 +22,8 @@ class AppState extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(providers: [
       ChangeNotifierProvider(create: (_) => ClientProvider()),
-      ChangeNotifierProvider(create: (_) => NewClientFormProvider())
+      ChangeNotifierProvider(create: (_) => NewClientFormProvider()),
+      ChangeNotifierProvider(create: (_) => ClientImageProvider())
     ], child: const HotelPrimavera());
   }
 }

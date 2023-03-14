@@ -29,18 +29,17 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  cloud_firestore: ^4.4.4
   cupertino_icons: ^1.0.5
   email_validator: ^2.1.17
-  file_picker: ^5.2.5
-  firebase_auth: ^4.2.6
+  file_picker: ^5.2.6
+  firebase_auth: ^4.2.10
   firebase_core: ^2.4.1
-  firebase_database: ^10.0.10
+  firebase_database: ^10.0.15
   firebase_storage: ^11.0.15
-  fluro: ^2.0.4
+  fluro: ^2.0.5
   flutter:
     sdk: flutter
-  flutter_svg: ^2.0.0+1
+  flutter_svg: ^2.0.3
   google_fonts: ^4.0.3
   material_design_icons_flutter: ^6.0.7096
   provider: ^6.0.5
