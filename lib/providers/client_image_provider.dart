@@ -9,6 +9,7 @@ class ClientImageProvider extends ChangeNotifier {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   late Uint8List image = notImage;
+  late String path = "";
 
   setDefaultImage() {
     notifyListeners();
@@ -18,6 +19,18 @@ class ClientImageProvider extends ChangeNotifier {
   setImage({required Uint8List image}) {
     notifyListeners();
     this.image = image;
+  }
+
+  setPath({required String path}) {
+    this.path = path;
+  }
+
+  String getPath() {
+    return path;
+  }
+
+  Uint8List getImage() {
+    return image;
   }
 
   Uint8List notImage = Uint8List.fromList([

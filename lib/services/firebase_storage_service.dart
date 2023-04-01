@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:hotel_primavera_app/services/services.dart';
@@ -13,17 +13,18 @@ class FirebaseStorageService {
   ///Primeramente se guarda con el nombre de identificación alfanumerico del cliente al que corresponde y
   ///al cliente se le asigna la url con la cual puede acceder a la imagen. además permite la actualización
   ///simplemente sobresescribe la imagen.
-  static uploadProductFile(String path, String name) async {
-    File file = File(path);
+  static uploadClientImage(Uint8List data, String name) async {
     try {
-      await _storage.ref('clients/$name').putFile(file);
+      await _storage
+          .ref('clients/$name')
+          .putData(data, SettableMetadata(contentType: 'image/jpeg'));
     } catch (e) {
       NotificationsService.showErrorSnackbar(
           "Ha ocurrido un error a la hora se subir la nueva imagen. Por favor, inmtentelo de nuevo.");
     }
     try {
-      String url = await _storage.ref('products/$name').getDownloadURL();
-      FirebaseDatabaseService.setClientImagUrl(clientId: path, imageUrl: url);
+      String url = await _storage.ref('clients/$name').getDownloadURL();
+      FirebaseDatabaseService.setClientImagUrl(clientId: name, imageUrl: url);
     } catch (e) {
       NotificationsService.showErrorSnackbar(
           "Ha ocurrido un error a la hora de cargar la nueva imagen. Por favor, inmtentelo de nuevo.");

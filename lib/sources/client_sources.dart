@@ -20,11 +20,11 @@ class ClientDataTableSources extends DataTableSource {
             width: 35,
             height: 35,
           )
-        : FadeInImage.assetNetwork(
-            placeholder: 'circularanimation.gif',
+        : FadeInImage(
+            placeholder: const AssetImage('circularanimation.gif'),
             width: 35,
             height: 35,
-            image: client.imageUrl);
+            image: NetworkImage(client.imageUrl));
     return DataRow.byIndex(index: index, cells: [
       DataCell(ClipOval(child: image)),
       DataCell(Text(client.name)),

@@ -1,11 +1,9 @@
 // ignore_for_file: curly_braces_in_flow_control_structures, unnecessary_null_comparison
-
-import 'dart:io';
-import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import '../models/client.dart';
 import '../providers/providers.dart';
 import '../services/services.dart';
 import '../themes/themes.dart';
@@ -37,8 +35,8 @@ class AddClinetCard {
               ///Llama a las acciones (botones) para cerrar la sesión o continuar.
               ///Se envia la función para cerrar la sesión.
               actions: _actions(
-                  context,
-                  () => _validate(
+                  context: context,
+                  onPressed: () => _validate(
                       newClientFormProvider: newClientFormProvider,
                       context: context)));
         });
@@ -46,7 +44,7 @@ class AddClinetCard {
 
   ///Esta lista corresponde a los dos botones que se encuentran en la parte inferior del cuadro de dialogo.
   static List<Widget> _actions(
-      BuildContext context, void Function()? onPressed) {
+      {required BuildContext context, required void Function()? onPressed}) {
     final size = MediaQuery.of(context).size;
     return [
       Padding(
@@ -286,19 +284,20 @@ class _NewClientFormState extends State<_NewClientForm> {
   }
 }
 
+///Esta es la función que es llamada cuando cuando guardamos al cliente una vez
+///llenado el formulario.
 void _validate(
     {required NewClientFormProvider newClientFormProvider,
     required BuildContext context}) {
+  ///Valida que el formulario cumpla con los requerimientos minimos.
   if (newClientFormProvider.validateForm()) {
-    // FirebaseDatabaseService.getUserByEmail(
-    //         email: loginFormProvider.email, isFromPassword: true)
-    //     .then((User? user) => _validateData(
-    //         user: user,
-    //         loginFormProvider: loginFormProvider,
-    //         context: context));
-  } else {
-    // NotificationsService.showErrorSnackbar(
-    //     'No se han ingresado los datos para iniciar sesión.');
+    Client client = Client(
+        email1: newClientFormProvider.email1,
+        identification: newClientFormProvider.identification,
+        identificationType: newClientFormProvider.identificationType,
+        name: newClientFormProvider.name,
+        number1: newClientFormProvider.number1);
+    FirebaseDatabaseService.setClient(client: client, context: context);
   }
 }
 
@@ -335,7 +334,7 @@ _addImage({required ClientImageProvider clientImageProvider}) async {
   if (result == null) {
     NotificationsService.showSnackbar('No ha selecionado ninguna imagen.');
   } else {
-    Uint8List? fileBytes = result.files.first.bytes;
+    final Uint8List? fileBytes = result.files.first.bytes;
     clientImageProvider.setImage(image: fileBytes!);
   }
 }
