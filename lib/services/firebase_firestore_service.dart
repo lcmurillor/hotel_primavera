@@ -75,7 +75,6 @@ class FirebaseDatabaseService {
   static void setClientImagUrl(
       {required String clientId, required String imageUrl}) async {
     _database.ref().child('clients/$clientId').update({"imageUrl": imageUrl});
-    NavigationService.replaceTo(Flurorouter.dashboardRoute);
   }
 
   static void setClient(
@@ -97,7 +96,10 @@ class FirebaseDatabaseService {
     final clientImageProvider =
         Provider.of<ClientImageProvider>(context, listen: false);
 
-    FirebaseStorageService.uploadClientImage(
-        clientImageProvider.getImage(), uid);
+    if (clientImageProvider.getIsLoaded()) {
+      FirebaseStorageService.uploadClientImage(
+          clientImageProvider.getImage(), uid);
+    }
+    NavigationService.replaceTo(Flurorouter.dashboardRoute);
   }
 }

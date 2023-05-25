@@ -88,6 +88,7 @@ class _NewClientFormState extends State<_NewClientForm> {
     final size = MediaQuery.of(context).size;
     final clientImageProvider =
         Provider.of<ClientImageProvider>(context, listen: true);
+    clientImageProvider.setIsLoaded(isLoaded: false);
     return Form(
       key: widget.newClientFormProvider.formKey,
       child: SizedBox(
@@ -335,6 +336,7 @@ _addImage({required ClientImageProvider clientImageProvider}) async {
     NotificationsService.showSnackbar('No ha selecionado ninguna imagen.');
   } else {
     final Uint8List? fileBytes = result.files.first.bytes;
+    clientImageProvider.setIsLoaded(isLoaded: true);
     clientImageProvider.setImage(image: fileBytes!);
   }
 }

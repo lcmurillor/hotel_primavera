@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_primavera_app/widgets/widgets.dart';
+import 'package:image_network/image_network.dart';
 import '../models/models.dart';
 import '../services/services.dart';
 
@@ -14,19 +15,18 @@ class ClientDataTableSources extends DataTableSource {
   @override
   DataRow getRow(int index) {
     final Client client = clients[index];
-    final image = (client.imageUrl == "N/A")
-        ? const Image(
-            image: AssetImage('not_image.png'),
-            width: 35,
-            height: 35,
-          )
-        : FadeInImage(
-            placeholder: const AssetImage('circularanimation.gif'),
-            width: 35,
-            height: 35,
-            image: NetworkImage(client.imageUrl));
+    final image = ImageNetwork(
+        image: client.imageUrl,
+        width: 40,
+        height: 40,
+        borderRadius: BorderRadius.circular(100.00),
+        onError: const Icon(Icons.image_outlined, color: Colors.grey));
+
     return DataRow.byIndex(index: index, cells: [
-      DataCell(ClipOval(child: image)),
+      DataCell(CircleAvatar(
+        backgroundColor: Colors.transparent,
+        child: image,
+      )),
       DataCell(Text(client.name)),
       DataCell(Text(client.identification)),
       DataCell(Text(client.email1)),

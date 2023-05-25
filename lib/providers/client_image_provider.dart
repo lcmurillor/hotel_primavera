@@ -10,6 +10,7 @@ class ClientImageProvider extends ChangeNotifier {
 
   late Uint8List image = notImage;
   late String path = "";
+  late bool isLoaded = false;
 
   setDefaultImage() {
     notifyListeners();
@@ -31,6 +32,14 @@ class ClientImageProvider extends ChangeNotifier {
 
   Uint8List getImage() {
     return image;
+  }
+
+  bool getIsLoaded() {
+    return isLoaded;
+  }
+
+  setIsLoaded({required bool isLoaded}) {
+    this.isLoaded = isLoaded;
   }
 
   Uint8List notImage = Uint8List.fromList([

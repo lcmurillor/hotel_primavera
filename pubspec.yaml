@@ -41,6 +41,7 @@ dependencies:
     sdk: flutter
   flutter_svg: ^2.0.3
   google_fonts: ^4.0.3
+  image_network: ^2.5.1
   material_design_icons_flutter: ^6.0.7096
   provider: ^6.0.5
 
