@@ -310,12 +310,12 @@ String? _validedIdentificantionCondition(
   if (identificationType == 1 && (value == null || value.isEmpty)) {
     return 'Debe ingresar una cédula de identidad nacional para crear el cliente.';
   } else if (identificationType == 1 && value.length != 9) {
-    return 'La cédula de identidad nacional no comple con la logitud adecuada.';
+    return 'No comple con la logitud adecuada.';
   } else if (identificationType == 2 && (value == null || value.isEmpty)) {
     return 'Debe ingresar una cédula jurídica para crear el cliente.';
   } else if (identificationType == 2 &&
       (value.length != 10 || value.substring(0, 1) != '3')) {
-    return 'La cédula jurídica no comple con la los requemientos correspondientes.';
+    return 'No comple con la los requemientos correspondientes.';
   } else if (identificationType == 3 && (value == null || value.isEmpty)) {
     return 'Debe ingresar una cédula de identidad extranjero para crear el cliente.';
   } else if (identificationType == 4 && (value == null || value.isEmpty)) {

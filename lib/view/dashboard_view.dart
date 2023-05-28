@@ -26,7 +26,7 @@ class DashboardView extends StatelessWidget {
 
                 ///Tabla de datos donde se muestran los clientes.
                 child: PaginatedDataTable(
-                    dataRowHeight: size.height * 0.065,
+                    // dataRowHeight: size.height * 0.065,
                     columnSpacing: 40,
                     horizontalMargin: 10,
                     rowsPerPage: 10,

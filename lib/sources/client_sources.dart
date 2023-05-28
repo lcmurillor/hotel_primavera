@@ -15,12 +15,16 @@ class ClientDataTableSources extends DataTableSource {
   @override
   DataRow getRow(int index) {
     final Client client = clients[index];
-    final image = ImageNetwork(
-        image: client.imageUrl,
-        width: 40,
-        height: 40,
-        borderRadius: BorderRadius.circular(100.00),
-        onError: const Icon(Icons.image_outlined, color: Colors.grey));
+    final image = client.imageUrl != "N/A"
+        ? ImageNetwork(
+            image: client.imageUrl,
+            width: 40,
+            height: 40,
+            borderRadius: BorderRadius.circular(100.00))
+        : ClipRRect(
+            borderRadius: BorderRadius.circular(100),
+            child: Image.asset('not_image.png'),
+          );
 
     return DataRow.byIndex(index: index, cells: [
       DataCell(CircleAvatar(
